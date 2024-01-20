@@ -1,6 +1,6 @@
-package com.clancode.labs.controllers;
+package com.clancode.labs.api;
 
-import com.clancode.labs.model.Task;
+import com.clancode.labs.entity.Task;
 import com.clancode.labs.services.TaskService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/v1/tasks")
 @CrossOrigin("*")
 @AllArgsConstructor
-public class TaskController {
+public class TaskHttpController {
 
     private TaskService taskService;
 
@@ -30,7 +30,8 @@ public class TaskController {
         return taskService.save(task);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<?> addTask(@RequestBody Task taskPara, @PathVariable Integer id){
          if(taskService.existById(id)) {
             Task existingTask = taskService.getTaskById(id).orElseThrow(()-> new EntityNotFoundException("Requested task not found"));
@@ -45,5 +46,25 @@ public class TaskController {
              message.put("message ", id + "task not found or matched");
              return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
          }
+    }
+
+    @GetMapping("/{id}")
+    public Task getById(@PathVariable Integer id){
+        return taskService.getTaskById(id).orElseThrow(()-> new EntityNotFoundException("Requested task not found"));
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<?> deleteTask(@PathVariable Integer id){
+        if (taskService.existById(id)){
+            taskService.deleteTask(id);
+            HashMap<String, String> message = new HashMap<>();
+            message.put("message ", id + "task removed.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }else {
+            HashMap<String, String> message = new HashMap<>();
+            message.put("message ", id + "task not found or matched");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
     }
 }

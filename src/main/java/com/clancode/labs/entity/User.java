@@ -1,4 +1,4 @@
-package com.clancode.labs.model;
+package com.clancode.labs.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements SuperEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

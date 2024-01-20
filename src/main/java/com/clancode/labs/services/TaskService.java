@@ -1,11 +1,10 @@
 package com.clancode.labs.services;
 
-import com.clancode.labs.model.Task;
+import com.clancode.labs.entity.Task;
 import com.clancode.labs.repository.TaskRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +15,7 @@ public class TaskService {
     private TaskRepository taskRepository;
 
     public List<Task> getTasks(){
-        return taskRepository.findAll();
+        return taskRepository.getAllTaskByDueDateDesc();
     }
 
     public Task save(Task task) {
@@ -29,5 +28,9 @@ public class TaskService {
 
     public Optional<Task> getTaskById(Integer id){
         return taskRepository.findById(id);
+    }
+
+    public void deleteTask(Integer id) {
+        taskRepository.deleteById(id);
     }
 }

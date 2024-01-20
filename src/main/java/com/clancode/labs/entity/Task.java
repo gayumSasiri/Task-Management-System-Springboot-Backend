@@ -1,4 +1,4 @@
-package com.clancode.labs.model;
+package com.clancode.labs.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "task")
-public class Task {
+public class Task implements SuperEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
