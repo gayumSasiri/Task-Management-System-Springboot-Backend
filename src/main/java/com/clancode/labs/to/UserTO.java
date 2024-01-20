@@ -4,6 +4,7 @@ import com.clancode.labs.entity.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
@@ -19,8 +20,9 @@ public class UserTO implements Serializable {
     @NotBlank(message = "user name cannot be blank")
     @Pattern(regexp = "^[A-Za-z ]+$", message = "Invalid user name")
     String userName;
-    @NotBlank(message = "username cannot be blank")
+    @NotBlank(message = "Password cannot be blank")
+    @Length(min = 7)
     String password;
-    @NotBlank(message = "user role cannot be blank")
+    @Pattern(regexp = "^(ADMIN)|(REGULAR)$", message = "Invalid role")
     UserRole role;
 }
