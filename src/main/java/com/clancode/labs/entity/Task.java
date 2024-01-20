@@ -16,16 +16,13 @@ public class Task implements SuperEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "task_id")
-    private int id;
-
+    @Column(name = "task_id", length = 20)
+    private int taskId;
     @Column(nullable = false, length = 100)
     private String title;
-
-    @Column(length = 1000)
+    @Column(nullable = false ,length = 1000)
     private String description;
-
-    @Column(name = "due_date")
+    @Column(nullable = false, name = "due_date")
     private Date dueDate;
 
     @ManyToOne

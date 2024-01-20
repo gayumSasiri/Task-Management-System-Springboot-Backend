@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task,Integer> {
-    @Query(value = "SELECT * FROM task ORDER BY due_date DESC", nativeQuery = true)
-    public List<Task> getAllTaskByDueDateDesc();
+//    @Query(value = "SELECT * FROM task ORDER BY due_date DESC", nativeQuery = true)
+//    public List<Task> getAllTaskByDueDateDesc();
 }
