@@ -28,6 +28,32 @@ Welcome to our Task Management System! This comprehensive application is designe
 
 Whether you're an individual striving to stay organized or an administrator overseeing the entire task ecosystem, our Task Management System provides a user-friendly and efficient solution to meet your needs. Dive in and experience the convenience of effective task management!
 
+## How to setup
+
+### Step1: Clone the repository
+
+- ```shell
+   https://github.com/gayumSasiri/Task-Management-System-Springboot-Backend.git
+  
+### Step2: Open the Project
+
+- Open the project in your preferred Integrated Development Environment (IDE), such as IntelliJ IDEA, Eclipse, or Visual Studio Code.
+
+### Step3: Navigate to `application.properties`
+
+- Navigate to the `src/main/resources` directory within your project, and locate the `application.properties` file.
+- 
+### Step4: Update MySQL Username and Password
+
+- Open the application.properties file in a text editor. Look for the following lines:
+
+- `spring.datasource.username=your_username`
+- `spring.datasource.password=your_password`
+
+### Step5: Build and Run the Application
+
+- Build and run the Spring Boot application.
+
 ## Tech Stack Used
 
 - **Back End** - springboot
