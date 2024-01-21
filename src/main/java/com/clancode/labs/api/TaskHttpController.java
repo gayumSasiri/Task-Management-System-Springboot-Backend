@@ -45,7 +45,7 @@ public class TaskHttpController {
     }
 
     @GetMapping(produces = "application/json")
-    public List<TaskTO> getAllTasks(@Param("user-id")Integer userId) {
+    public List<TaskTO> getAllTasks(@RequestParam("user-id")Integer userId) {
         return service.getTaskList(userId);
     }
 }
