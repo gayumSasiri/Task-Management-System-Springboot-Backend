@@ -30,6 +30,7 @@ public class UserHttpController {
     public void updateUser(@PathVariable("user-id") Integer userId,
                             @RequestBody @Validated UserTO userTO) {
         userTO.setUserId(userId);
+        System.out.println(userTO);
         service.updateUser(userTO);
     }
 

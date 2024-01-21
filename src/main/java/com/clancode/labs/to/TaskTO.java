@@ -22,12 +22,13 @@ public class TaskTO implements Serializable {
     @NotBlank(message = "task description cannot be blank")
     @Pattern(regexp = "^[A-Za-z ]+$", message = "Invalid description")
     String description;
-    @NotBlank(message = "DueDate Cannot be blank")
-    Date dueDate;
+    @NotBlank(message = "Task id should not be blank")
+    String userId;
 
-    public TaskTO(String title, String description, Date dueDate) {
+
+    public TaskTO(String title, String description, String userId) {
         this.title = title;
         this.description = description;
-        this.dueDate = dueDate;
+        this.userId = userId;
     }
 }

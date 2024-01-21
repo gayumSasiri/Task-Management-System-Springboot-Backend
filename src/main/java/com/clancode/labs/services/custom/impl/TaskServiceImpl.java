@@ -1,7 +1,9 @@
 package com.clancode.labs.services.custom.impl;
 
 import com.clancode.labs.entity.Task;
+import com.clancode.labs.entity.User;
 import com.clancode.labs.repository.TaskRepository;
+import com.clancode.labs.repository.UserRepository;
 import com.clancode.labs.services.custom.TaskService;
 import com.clancode.labs.services.util.TaskTransformer;
 import com.clancode.labs.to.TaskTO;
@@ -18,39 +20,51 @@ import java.util.Optional;
 @Transactional
 public class TaskServiceImpl implements TaskService {
 
-    public final TaskRepository repository;
+    public final TaskRepository taskRepository;
     public final TaskTransformer transformer;
+    public final UserRepository userRepository;
+
 
     @Override
     public TaskTO saveTask(TaskTO taskTO) {
         Task task = transformer.fromTaskTO(taskTO);
-        Task savedTask = repository.save(task);
+        Task savedTask = taskRepository.save(task);
         return transformer.toTaskTO(savedTask);
     }
 
     @Override
     public void updateTask(TaskTO taskTO) {
-        repository.findById(taskTO.getTaskId()).orElseThrow(()-> new EntityNotFoundException("Task not found"));
+        taskRepository.findById(taskTO.getTaskId()).orElseThrow(()-> new EntityNotFoundException("Task not found"));
         Task updatedTask = transformer.fromTaskTO(taskTO);
-        repository.save(updatedTask);
+        taskRepository.save(updatedTask);
     }
 
     @Override
     public void deleteTask(Integer taskId) {
-        Task task = repository.findById(taskId).orElseThrow(()-> new EntityNotFoundException("Task not found"));
-        repository.delete(task);
+        Task task = taskRepository.findById(taskId).orElseThrow(()-> new EntityNotFoundException("Task not found"));
+        taskRepository.delete(task);
     }
 
     @Override
     public TaskTO getTaskDetails(Integer taskId) {
-        Optional<Task> optTask = repository.findById(taskId);
+        Optional<Task> optTask = taskRepository.findById(taskId);
         if (optTask.isEmpty()) throw new EntityNotFoundException("Task not found");
         return transformer.toTaskTO(optTask.get());
     }
 
     @Override
-    public List<TaskTO> getTaskList() {
-        List<Task> taskList = repository.findAll();
-        return transformer.toTaskTOList(taskList);
+    public List<TaskTO> getTaskList(Integer userId) {
+        Optional<User> optUser = userRepository.findById(userId);
+        if (optUser.isPresent()){
+            if (optUser.get().getRole().equals("ADMIN")){
+                List<Task> taskList = taskRepository.findAll();
+                return transformer.toTaskTOList(taskList);
+            }else {
+                List<Task> taskListByUserId = taskRepository.findAllTaskByUserId(userId);
+                return transformer.toTaskTOList(taskListByUserId);
+            }
+        }else {
+            throw new EntityNotFoundException("Invalid userId");
+        }
     }
 }

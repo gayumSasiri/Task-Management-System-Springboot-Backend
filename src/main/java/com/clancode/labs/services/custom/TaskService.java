@@ -10,5 +10,5 @@ public interface TaskService {
     void updateTask(TaskTO taskTO);
     void deleteTask(Integer taskId);
     TaskTO getTaskDetails(Integer taskId);
-    List<TaskTO> getTaskList();
+    List<TaskTO> getTaskList(Integer userId);
 }

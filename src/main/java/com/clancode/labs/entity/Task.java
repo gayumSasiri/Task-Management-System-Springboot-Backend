@@ -22,8 +22,6 @@ public class Task implements SuperEntity{
     private String title;
     @Column(nullable = false ,length = 1000)
     private String description;
-    @Column(nullable = false, name = "due_date")
-    private Date dueDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
